@@ -1,37 +1,41 @@
-import { motion } from 'framer-motion'
+import { motion, transform } from 'framer-motion'
 import { useState } from 'react'
 function ToggleButton() {
     
     const [isToggle, setIsToggle] = useState(false);        
     const toggleButton = () => {
-        if(isToggle){
-            setIsToggle(true);
-        } else {
-            setIsToggle(false)
-        }
-        setIsToggle(!isToggle)
-        }
+       setIsToggle(prev => !prev);
+ }
         
+        const moon = <img src="./moon.png" alt="" />
+        const sun = <img src="./sun.png" alt="" />
 return (
 
-    <div className='flex h-screen justify-center items-center'>
+    <div 
+    className={`flex h-screen justify-center items-center
+    ${isToggle ? 'bg-white': "bg-black" }
+    `}>
 
         <motion.div 
         layout
-        transition={{duration: 0.1 , ease:"easeOut" , type: 'spring'}}
         data-displaced={isToggle}
         onClick={toggleButton}
         
-        className='flex w-28 h-20 rounded-full bg-gray-500 p-2 justify-start items-center
+        className={`flex w-36 h-20 rounded-full  bg-linear-120  p-2 justify-start items-center select-none
         data-[displaced=true]:justify-end
-        
-        '>
+        ${isToggle ? "bg-black ": "bg-white" }
+        `}>
             <motion.div
-            layout
-            className='bg-gray-100 rounded-full w-16 h-16
+            layout 
+            transition={{type:"spring",stiffness:700 , damping:30}}  
             
-            '>
-
+            className={`rounded-full w-16 h-16
+            }`}
+            
+            >
+                {
+                    isToggle ? sun : moon
+                }
             </motion.div>
         </motion.div>
     </div>
